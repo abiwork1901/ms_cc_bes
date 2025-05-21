@@ -1,39 +1,49 @@
-# Credit Card Application - Docker Setup
+# Credit Card Application Backend - Docker Setup
 
-This application consists of a React frontend and Spring Boot backend, combined into a single Docker container.
+This is the Spring Boot backend service for the Credit Card Application.
 
 ## Prerequisites
 
 - Docker
-- Docker Compose
 
 ## Quick Start
 
-1. Build and run the application:
+1. Build the Docker image:
    ```bash
-   docker-compose up --build
+   docker build -t ms-cc-backend .
    ```
 
-2. Access the application:
-   - Frontend: http://localhost:80
+2. Run the container:
+   ```bash
+   docker run -d -p 8080:8080 --name ms-cc-backend-container ms-cc-backend
+   ```
+
+3. Access the application:
    - Backend API: http://localhost:8080
+   - H2 Console: http://localhost:8080/h2-console
+   - Actuator Endpoints: http://localhost:8080/actuator
 
 ## Container Details
 
-- Single container running both frontend and backend
-- Frontend: React app served via Nginx
-- Backend: Spring Boot application
-- Nginx configured to proxy API requests to backend
-- Health checks enabled
-- Log volume mounted at `./logs`
+- Spring Boot application running on OpenJDK 17 (Amazon Corretto)
+- H2 in-memory database
+- Log volume mounted at `/logs`
+- Port 8080 exposed for API access
 
 ## Environment Variables
 
 - `SPRING_PROFILES_ACTIVE`: Set to `prod` by default
 - `JAVA_OPTS`: JVM options (`-Xmx512m -Xms256m` by default)
 
-## Stopping the Application
+## Stopping the Container
 
 ```bash
-docker-compose down
+docker stop ms-cc-backend-container
+docker rm ms-cc-backend-container
+```
+
+## Viewing Logs
+
+```bash
+docker logs ms-cc-backend-container
 ``` 

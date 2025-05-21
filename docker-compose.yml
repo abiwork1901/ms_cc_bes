@@ -5,7 +5,6 @@ services:
     build: .
     container_name: credit-card-app
     ports:
-      - "80:80"
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
@@ -13,7 +12,7 @@ services:
     volumes:
       - ./logs:/logs
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80 && wget --spider -q http://localhost:8080/actuator/health || exit 1"]
+      test: ["CMD", "wget", "--spider", "-q", "wget --spider -q http://localhost:8080/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
