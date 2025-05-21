@@ -37,3 +37,5 @@ This application consists of a React frontend and Spring Boot backend, combined 
 ```bash
 docker-compose down
 ``` 
+
+## Example
